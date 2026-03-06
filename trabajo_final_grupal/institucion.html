@@ -1,198 +1,627 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Institucion</title>
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/style.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
-	<script src="js/modernizr.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
+	<title>Institución Educativa Alfred Nobel | Institución</title>
+	<!-- Modern Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<style>
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1e40af;
+			--secondary: #10b981;
+			--dark: #0f172a;
+			--light: #f8fafc;
+			--text-main: #334155;
+			--text-muted: #64748b;
+			--glass-bg: rgba(255, 255, 255, 0.85);
+			--glass-border: rgba(255, 255, 255, 0.3);
+			--glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins', sans-serif;
+			scroll-behavior: smooth;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--text-main);
+			overflow-x: hidden;
+		}
+
+		/* --- Navbar (Glassmorphism) --- */
+		.navbar {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 1000;
+			background: var(--glass-bg);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-bottom: 1px solid var(--glass-border);
+			box-shadow: var(--glass-shadow);
+			padding: 15px 5%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			transition: all 0.3s ease;
+		}
+
+		.navbar-brand {
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: var(--primary-dark);
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.navbar-brand i {
+			color: var(--secondary);
+		}
+
+		.nav-links {
+			display: flex;
+			gap: 30px;
+			list-style: none;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: var(--text-main);
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: color 0.3s ease;
+			position: relative;
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 2px;
+			bottom: -4px;
+			left: 0;
+			background-color: var(--primary);
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover,
+		.nav-links a.active {
+			color: var(--primary);
+		}
+
+		.nav-links a:hover::after,
+		.nav-links a.active::after {
+			width: 100%;
+		}
+
+		.menu-toggle {
+			display: none;
+			cursor: pointer;
+			font-size: 1.5rem;
+			color: var(--dark);
+		}
+
+		/* --- Page Header --- */
+		.page-header {
+			margin-top: 70px;
+			/* Offset navbar */
+			background: linear-gradient(135deg, var(--dark), var(--primary-dark));
+			padding: 80px 5%;
+			text-align: center;
+			color: white;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.page-header::before {
+			content: '';
+			position: absolute;
+			top: -50%;
+			left: -50%;
+			width: 200%;
+			height: 200%;
+			background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 10%, transparent 50%);
+			animation: pulse 15s linear infinite;
+		}
+
+		@keyframes pulse {
+			0% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.1);
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.page-header h1 {
+			font-size: 3rem;
+			font-weight: 700;
+			margin-bottom: 10px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.page-header p {
+			font-size: 1.1rem;
+			color: rgba(255, 255, 255, 0.8);
+			position: relative;
+			z-index: 1;
+		}
+
+		/* --- Content Layout --- */
+		.main-container {
+			display: grid;
+			grid-template-columns: 1fr 300px;
+			gap: 40px;
+			padding: 60px 5%;
+			max-width: 1300px;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		/* --- Content Sections --- */
+		.content-section {
+			background: white;
+			border-radius: 20px;
+			padding: 40px;
+			margin-bottom: 40px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+			border: 1px solid rgba(0, 0, 0, 0.02);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.content-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 4px;
+			height: 100%;
+			background: var(--primary);
+			border-radius: 4px 0 0 4px;
+		}
+
+		.content-section h2 {
+			font-size: 2rem;
+			color: var(--dark);
+			margin-bottom: 25px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.content-section h2 i {
+			color: var(--secondary);
+			font-size: 1.6rem;
+		}
+
+		.content-section h3 {
+			font-size: 1.3rem;
+			color: var(--primary-dark);
+			margin: 30px 0 15px;
+		}
+
+		.content-section p {
+			color: var(--text-muted);
+			line-height: 1.8;
+			font-size: 1.05rem;
+			margin-bottom: 15px;
+			text-align: justify;
+		}
+
+		/* Mission / Vision Cards Grid */
+		.mv-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 25px;
+			margin-top: 30px;
+		}
+
+		.mv-card {
+			background: var(--light);
+			padding: 30px;
+			border-radius: 15px;
+			border: 1px solid var(--glass-border);
+			transition: all 0.3s ease;
+		}
+
+		.mv-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+			border-color: rgba(37, 99, 235, 0.2);
+		}
+
+		.mv-card h3 {
+			margin-top: 0;
+			color: var(--primary);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+			padding-bottom: 10px;
+		}
+
+		/* Map Container */
+		.map-container {
+			border-radius: 15px;
+			overflow: hidden;
+			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+			margin-top: 20px;
+			height: 400px;
+		}
+
+		.map-container iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
+
+		/* --- Sticky Sidebar --- */
+		.sidebar {
+			position: sticky;
+			top: 100px;
+			background: white;
+			border-radius: 20px;
+			padding: 30px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+			border: 1px solid rgba(0, 0, 0, 0.02);
+			height: fit-content;
+		}
+
+		.sidebar-logo {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.sidebar-logo img {
+			max-width: 150px;
+			border-radius: 50%;
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		.sidebar h4 {
+			color: var(--dark);
+			font-size: 1.2rem;
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.sidebar-nav {
+			list-style: none;
+		}
+
+		.sidebar-nav li {
+			margin-bottom: 10px;
+		}
+
+		.sidebar-nav a {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 12px 15px;
+			border-radius: 10px;
+			color: var(--text-muted);
+			text-decoration: none;
+			transition: all 0.3s ease;
+			background: var(--light);
+			font-weight: 500;
+		}
+
+		.sidebar-nav a:hover,
+		.sidebar-nav a.active-link {
+			background: var(--primary);
+			color: white;
+			transform: translateX(5px);
+		}
+
+		/* --- Footer --- */
+		.modern-footer {
+			background-color: var(--dark);
+			color: white;
+			padding: 60px 5% 30px;
+			margin-top: 50px;
+		}
+
+		.footer-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 40px;
+			margin-bottom: 40px;
+		}
+
+		.footer-col h4 {
+			font-size: 1.2rem;
+			margin-bottom: 20px;
+			color: var(--light);
+			position: relative;
+			display: inline-block;
+		}
+
+		.footer-col h4::after {
+			content: '';
+			position: absolute;
+			width: 30px;
+			height: 2px;
+			background: var(--secondary);
+			bottom: -8px;
+			left: 0;
+		}
+
+		.footer-col p,
+		.footer-col li {
+			color: rgba(255, 255, 255, 0.7);
+			line-height: 1.8;
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			text-decoration: none;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.social-links a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.social-links a:hover {
+			background: var(--primary);
+			transform: translateY(-3px);
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 30px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 0.5);
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 992px) {
+			.main-container {
+				grid-template-columns: 1fr;
+			}
+
+			.sidebar {
+				display: none;
+				/* Hide sidebar on small screens */
+			}
+		}
+
+		@media (max-width: 768px) {
+			.mv-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.menu-toggle {
+				display: block;
+			}
+
+			.nav-links {
+				position: absolute;
+				top: 100%;
+				left: -100%;
+				width: 100%;
+				background: var(--glass-bg);
+				backdrop-filter: blur(15px);
+				flex-direction: column;
+				align-items: center;
+				padding: 30px 0;
+				box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+				transition: left 0.3s ease;
+			}
+
+			.nav-links.active {
+				left: 0;
+			}
+		}
+	</style>
 </head>
+
 <body>
-	<!--======================================== Boton ir arriba ========================================-->
-	<i class="btn-up fa fa-arrow-circle-o-up hidden-xs"></i>
-	<!--======================================== Navegación ========================================-->
-	<header class="full-reset header">
-		<!--======================================== Logo(Nombre INS) ========================================-->
-		<div class="full-reset logo">
-			<span class="hidden-lg hidden-md">institucion</span>
-			<span class="hidden-xs hidden-sm">Alfred Nobel </span>
+
+	<!-- Navbar -->
+	<nav class="navbar">
+		<a href="index.html" class="navbar-brand">
+			<i class="fa-solid fa-graduation-cap"></i>
+			Alfred Nobel
+		</a>
+		<div class="menu-toggle" id="mobile-menu">
+			<i class="fa-solid fa-bars"></i>
 		</div>
-		<!--======================================== Links de navegación ========================================-->
-		<nav class="full-reset navigation">
-			<ul class="full-reset list-unstyled">
-				<li><a href="index.html">Inicio</a></li>
-				<li><a href="institucion.html">Institución</a></li>
-				<li><a href="registro de notas2.html">Secretaría</a></li>
-				<li><a href="contactenos.html">Bachilleratos</a></li>
-				<li><a href="galeria.html">Galería</a></li>
-			</ul>
-		</nav>
-		<!--======================================== Mega menu ========================================-->
-		<div class="full-reset mega-menu">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4">
-						<span class="full-reset titles">Recursos educativos</span>
-						<ul class="list-unstyled full-reset">
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-search"></i>&nbsp; Buscar en GOOGLE</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-graduation-cap"></i>&nbsp; Plataforma (MOODLE)</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<span class="full-reset titles">Enlaces importantes</span>
-						<ul class="list-unstyled full-reset">
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-university"></i>&nbsp; MINED</a></li>
-							<li><a href="#!"><i class="fa fa-paw"></i>&nbsp; ARA-MACAO</a></li>
-							<li><a href="#!"><i class="fa fa-globe"></i>&nbsp; JOVENES A.T.T</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-flask"></i>&nbsp; UNIVERSIDADES</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-gavel"></i>&nbsp; GOBIERNO</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<span class="full-reset titles">Archivos</span>
-						<ul class="list-unstyled full-reset">
-							<li><a href="#!"><i class="fa fa-star-o"></i>&nbsp; Promociones INS</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-file-text-o"></i>&nbsp; Const. de conducta</a></li>
-							<li><a href="#!"><i class="fa fa-download"></i>&nbsp; Descargas</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<i class="fa fa-times-circle btm-mega-menu close-mega-menu fa-2x"></i>
-		</div>
-		<!--======================================== Boton menu mobil ========================================-->
-		<a href="#" class=" hidden-sm hidden-md hidden-lg pull-right button-menu-mobile show-close-menu-m"><i class="fa fa-ellipsis-v"></i></a>
+		<ul class="nav-links" id="nav-links">
+			<li><a href="index.html">Inicio</a></li>
+			<li><a href="institucion.html" class="active">Institución</a></li>
+			<li><a href="registro de notas2.html">Secretaría</a></li>
+			<li><a href="contactenos.html">Contáctenos</a></li>
+			<li><a href="galeria.html">Galería</a></li>
+		</ul>
+	</nav>
+
+	<!-- Page Header -->
+	<header class="page-header">
+		<h1>Nuestra Institución</h1>
+		<p>Conoce la historia, visión y compromiso que nos impulsa día a día.</p>
 	</header>
-	<!--======================================== Contenido de la pagina ========================================-->
-	<section class="full-reset" style="background-color: #fff; padding: 20px 0;">
-		<div class="container">
-			<div class="row">
-				<section class="col-xs-12 col-sm-8 col-md-9 info-section-ins">
-					<!--======================================== Mision y vision ========================================-->
-					<article class="full-reset" id="mision-vision">
-						<div class="page-header" style="margin-bottom:40px;">
-						  <h1><i class="fa fa-graduation-cap"></i> &nbsp; Misión y Vision</h1>
-						</div>
-						<br><br>
-						<div class="panel panel-primary">
-						  <div class="panel-heading lead text-center titles" style="background-color: rgb(2, 88, 21);">Misión</div>
-						  <div class="panel-body">
-						    <p class="lead text-justify">	
-								Nuestra Institución Educativa Alfred Nobel fue creada el 20 de setiembre de 1995 por su promotora y fundadora Daria Vila Huaroc, quien preocupada por la educación de los niños y adolescentes de Vitarte, se propuso brindarle la oportunidad de una educación de calidad que convine el conocimiento y los valores humanos.
 
-Es por ello, que mediante Resolución Directoral N° 1481 se crea la Institución Educativa Alfred Nobel en el nivel primaria, que a los pocos años amplió sus servicios mediante Resolución Directoral N° 1194 y 2938. En la actualidad nuestro colegio ofrece a la comunidad de Ate los niveles de inicial, primaria y secundaria en un local escolar construido en 5, 200 mts de terreno, específicamente creado para brindar servicio educativo, con campos deportivos de fulbito, vóley y básquet, con aulas amplias debidamente ventiladas e iluminadas.
-							</p>
+	<!-- Main Content -->
+	<div class="main-container">
 
-						  </div>
-						</div>
-						<br><br>
-						<div class="panel panel-primary">
-						  <div class="panel-heading lead text-center titles" style="background-color: rgb(2, 88, 21);">Visión</div>
-						  <div class="panel-body">
-						    <p class="lead text-justify">
-								• Alcanzar una cultura de los conocimientos conforme con los equilibrios de instrucción.
-• Incrementar aptitud de análisis y inteligencia crítico.
-• Invitar la curiosidad en aprendizaje.
-• Incrementar las soltura de comunicación.
-
-
-							</p>
-						  </div>
-						</div>	
-					</article>
-					<!--======================================== Reseña historica ========================================-->
-					<article class="full-reset" id="resena-ins">
-						<div class="page-header" style="margin-bottom:50px;">
-						  <h1><i class="fa fa-university"></i> &nbsp; Reseña histórica</h1>
-						</div>
-						<h3 class="text-center titles text-uppercase">Antesedentes</h3>
-						<p class="lead text-justify">
-							Alfred Bernhard Nobel nace en Estocolmo en 1833 pero a los nueve años de edad se traslada junto a su familia a Rusia. En San Petersburgo, recibe una esmerada educación en ciencias naturales y humanidades.
-							<br><br>
-							En 1863 completa sus investigaciones en el campo de los explosivos con la nitroglicerina. Pero no será hasta 1867 cuando consigue la dinamita como resultado de la absorción de la nitro glicerina en un material sólido poroso. Aunque Alfred Nobel no se contento solo con la dinamita y siguió haciendo investigaciones en el campo de los explosivos. En 1875 descubre la gelignita y en 1887 la balística. Estos productos fueron muy importantes para la construcción, la minería y la ingeniería, pero sobre todo para la industria militar. Sus descubrimientos en el campo de los explosivos le proporcionaron una gran riqueza. Pero el sentimiento de culpabilidad por el daño que hubieran podido causar sus inventos en la Humanidad le llevo a crear en 1900 la Fundación Nobel.
-							<br><br>
-							Esta fundación tenía el objetivo de premiar de forma anual a las personas que más hubieran hecho en beneficio de la Humanidad en los ámbitos de la física, la química, la medicina, la literatura y la paz mundial. Alfred Nobel, también desarrollo su fase literaria en el género de la poesía. Su obra titulada Nemesis, una tragedia en prosa sobre el episodio de Beatrice Cenci, fue impresa mientras agonizaba. La tirada completa de la obra, salvo tres ejemplares, fue destruida al ser considerada escandalosa y blasfema. Actualmente, además de una edición en sueco, existe otra en francés.
-
-							<br><br>
-							El 10 de diciembre de 1896 fallece Alfred Nobel a la edad de 63 años en San Remo, Italia. En su testamento dejó por escrito que más de la mitad de su fortuna se destinaría a la Fundación Nobel.
-						</p>
-						<br><br>
-						<h3 class="text-center titles text-uppercase">Marco legal</h3>
-						<p class="lead text-justify">
-							Institución educativa pública de nivel secundaria que forma escolares en el distrito limeño de Santiago de Surco, provincia de Lima.. <a href="https://www.deperu.com/educacion/educacion-secundaria/colegio-6047-jose-maria-arguedas-santiago-de-surco-96328">mas infomacion</a>
-					</article>
-					<!--======================================== Ubicacion geografica ========================================-->
-					<article class="full-reset" id="ubicacion-ins">
-						<div class="page-header">
-						  <h1><i class="fa fa-map"></i> &nbsp; Ubicación geográfica</h1>
-						</div>
-						<p class="lead text-justify">
-							El centro educativo «6047 JOSE MARIA ARGUEDAS» se encuentra ubicado en el departamento de Lima, en la dirección CALLE ESTEBAN CAMERE 500. Según el último censo educativo la institución educativa en el nivel Primaria cuenta con clases en turno Mañana-Tarde, con unas 19 secciones y tiene un total aproximado de 575 alumnos, contando con 296 varones y 279 mujeres.
-							<br><br>
-							6047 JOSE MARIA ARGUEDAS es un centro educativo en Lima que pertenece a la población Urbana, una institución educativa Escolarizada perteneciente a la DRE Lima Metropolitana con código 150108 y que está supervisada por la UGEL 07 San Borja.
-						
-						</p>
-						<br><br>
-						<h3  class="text-center titles"><i class="fa fa-map-marker"></i> &nbsp; Mapa de localización</h3>
-						<br>
-						<iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.075116822105!2d-76.91851188525422!3d-12.038349591472908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c154e3d2ca85%3A0xd16c7d7b958f4d38!2sInstituci%C3%B3n%20Educativa%20Privada%20Alfred%20Nobel!5e0!3m2!1ses-419!2spe!4v1658471803714!5m2!1ses-419!2spe" width="950" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-						<div id="mapa-ins"></div>
-					</article>
-				</section>
-				<!--======================================== Navegacion fija lateral derecha ========================================-->
-				<nav class="hidden-xs scroll-navigation-ins">
-					<figure class="full-reset">
-						<img src="assets/img/logo2.png" alt="Logo" class="img-responsive center-box">
-					</figure>
-					<h4 class="text-center titles">Información de la institución</h4>
-					<ul class="list-unstyled full-reset">
-						<li data-href="#mision-vision">Misión y Visión</li>
-						<li data-href="#resena-ins">Reseña Histórica</li>
-						<li data-href="#ubicacion-ins">Ubicación Geofráfica</li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</section>
-	<!--======================================== Pie de pagina ========================================-->
-	<footer class="full-reset footer">
-		<div class="full-reset" style="padding: 15px 0; background-color: rgb(2, 88, 21);" >
-			<div class="container">
-				<div class="row-success" >
-					<div class="col-xs-12 col-sm-4">
-						<h4 class="titles text-center">Visitenos en</h4>
-						<p class="text-center">nuestro colegio o llamenos.</p>
+		<!-- Articles Content -->
+		<main>
+			<!-- Misión y Visión Section -->
+			<section id="mision-vision" class="content-section">
+				<h2><i class="fa-solid fa-bullseye"></i> Misión y Visión</h2>
+				<div class="mv-grid">
+					<div class="mv-card">
+						<h3><i class="fa-solid fa-flag"></i> Misión</h3>
+						<p>Nuestra Institución Educativa Alfred Nobel fue creada el 20 de setiembre de 1995 por su
+							promotora y fundadora Daria Vila Huaroc, quien preocupada por la educación de los niños y
+							adolescentes de Vitarte, se propuso brindarle la oportunidad de una educación de calidad que
+							combine el conocimiento y los valores humanos.</p>
+						<p>En la actualidad nuestro colegio ofrece a la comunidad de Ate los niveles de inicial,
+							primaria y secundaria en un local escolar construido en 5,200 mts de terreno, con campos
+							deportivos y aulas amplias debidamente ventiladas e iluminadas.</p>
 					</div>
-					<div class="col-xs-12 col-sm-4">
-						<h4 class="titles text-center">Contactenos</h4>
-						<p class="text-center">Telefono: +(51)123456789<br>Correo Electrónico:alfred_nobel@hotmail.com</p>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<h4 class="titles subtitles-footer">redes</h4>
-						<ul class="list-unstyled links-footer">
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-facebook"></i> &nbsp; Facebook</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-twitter"></i> &nbsp; Twitter</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-google-plus"></i> &nbsp; Google+</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12">
-						<div class="full-reset footer-copyright"><i class="fa fa-copyright"></i>alfred nobel</div>
+					<div class="mv-card">
+						<h3><i class="fa-solid fa-eye"></i> Visión</h3>
+						<p>• Alcanzar una cultura de los conocimientos conforme con los equilibrios de instrucción.</p>
+						<p>• Incrementar aptitud de análisis y el pensamiento crítico.</p>
+						<p>• Invitar la curiosidad en el aprendizaje continuo.</p>
+						<p>• Incrementar la soltura de comunicación en los estudiantes.</p>
 					</div>
 				</div>
+			</section>
+
+			<!-- Reseña Histórica -->
+			<section id="historia" class="content-section">
+				<h2><i class="fa-solid fa-university"></i> Reseña Histórica</h2>
+				<h3>Antecedentes de Alfred Nobel</h3>
+				<p>Alfred Bernhard Nobel nace en Estocolmo en 1833 pero a los nueve años de edad se traslada junto a su
+					familia a Rusia. En San Petersburgo, recibe una esmerada educación en ciencias naturales y
+					humanidades.</p>
+				<p>En 1863 completa sus investigaciones en el campo de los explosivos con la nitroglicerina. Pero no
+					será hasta 1867 cuando consigue la dinamita. Alfred Nobel siguió haciendo investigaciones,
+					descubriendo la gelignita (1875) y la balistita (1887), productos vitales para la minería y la
+					ingeniería, pero también para la industria militar.</p>
+				<p>El sentimiento de culpabilidad por el daño potencial de sus inventos le llevó a crear en 1900 la
+					Fundación Nobel, con el objetivo de premiar a quienes actúan en beneficio de la Humanidad en la
+					física, la química, la medicina, la literatura y la paz mundial.</p>
+
+				<h3>Marco Legal</h3>
+				<p>Institución educativa pública/privada enfocada en formar escolares en Lima, comprometida con los más
+					altos estándares educativos y bajo regulaciones establecidas por el Ministerio de Educación.</p>
+			</section>
+
+			<!-- Ubicación Geográfica -->
+			<section id="ubicacion" class="content-section">
+				<h2><i class="fa-solid fa-map-location-dot"></i> Ubicación Geográfica</h2>
+				<p>Nuestra institución central se encuentra debidamente ubicada en un área accesible de Lima
+					Metropolitana, asegurando un entorno adecuado y seguro para el aprendizaje de nuestros más de 500
+					alumnos en los distintos niveles educativos.</p>
+				<p><strong>Dirección:</strong> Av. Marco Puente Llanos Mz. G lote 2A</p>
+
+				<div class="map-container">
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.075116822105!2d-76.91851188525422!3d-12.038349591472908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c154e3d2ca85%3A0xd16c7d7b958f4d38!2sInstituci%C3%B3n%20Educativa%20Privada%20Alfred%20Nobel!5e0!3m2!1ses-419!2spe!4v1658471803714!5m2!1ses-419!2spe"
+						allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</section>
+		</main>
+
+		<!-- Sticky Sidebar -->
+		<aside class="sidebar">
+			<div class="sidebar-logo">
+				<img src="assets/img/logo2.png" alt="Alfred Nobel Logo"
+					onerror="this.src='https://ui-avatars.com/api/?name=Alfred+Nobel&background=2563eb&color=fff&size=150'">
 			</div>
+			<h4>Información Rápida</h4>
+			<ul class="sidebar-nav">
+				<li><a href="#mision-vision" class="sidebar-link active-link"><i class="fa-solid fa-bullseye"></i>
+						Misión y Visión</a></li>
+				<li><a href="#historia" class="sidebar-link"><i class="fa-solid fa-book-open"></i> Reseña Histórica</a>
+				</li>
+				<li><a href="#ubicacion" class="sidebar-link"><i class="fa-solid fa-map"></i> Ubicación</a></li>
+			</ul>
+		</aside>
+
+	</div>
+
+	<!-- Footer -->
+	<footer class="modern-footer">
+		<div class="footer-grid" style="max-width: 1200px; margin: 0 auto;">
+			<div class="footer-col">
+				<h4>Alfred Nobel</h4>
+				<p>Una institución comprometida con el desarrollo integral y la excelencia educativa de nuestros
+					estudiantes.</p>
+				<div class="social-links">
+					<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+					<a href="#"><i class="fa-brands fa-twitter"></i></a>
+					<a href="#"><i class="fa-brands fa-instagram"></i></a>
+				</div>
+			</div>
+			<div class="footer-col">
+				<h4>Contacto</h4>
+				<p><i class="fa-solid fa-location-dot"></i> Av. Marco Puente Llanos Mz. G lote 2A</p>
+				<p><i class="fa-solid fa-phone"></i> 351-6196</p>
+				<p><i class="fa-solid fa-envelope"></i> AlfredNoble@gmail.com</p>
+			</div>
+			<div class="footer-col">
+				<h4>Enlaces Rápidos</h4>
+				<ul style="list-style: none;">
+					<li><a href="index.html" style="color: inherit; text-decoration: none;">Inicio</a></li>
+					<li><a href="registro de notas2.html" style="color: inherit; text-decoration: none;">Secretaría
+							(Notas)</a></li>
+					<li><a href="contactenos.html" style="color: inherit; text-decoration: none;">Admisión</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2026 Alfred Nobel. Todos los derechos reservados.</p>
 		</div>
 	</footer>
-<!--======================================== API de GOOGLE Maps  ?========================================-->
 
+	<script>
+		// Mobile menu toggle
+		const mobileMenu = document.getElementById('mobile-menu');
+		const navLinks = document.getElementById('nav-links');
+
+		mobileMenu.addEventListener('click', () => {
+			navLinks.classList.toggle('active');
+		});
+
+		// Navbar blur effect on scroll
+		window.addEventListener('scroll', () => {
+			const nav = document.querySelector('.navbar');
+			if (window.scrollY > 50) {
+				nav.style.background = 'rgba(255, 255, 255, 0.95)';
+				nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+			} else {
+				nav.style.background = 'rgba(255, 255, 255, 0.85)';
+				nav.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.07)';
+			}
+		});
+
+		// Simple smooth scroll activation for sidebar links
+		const sidebarLinks = document.querySelectorAll('.sidebar-link');
+		sidebarLinks.forEach(link => {
+			link.addEventListener('click', (e) => {
+				sidebarLinks.forEach(l => l.classList.remove('active-link'));
+				e.target.closest('a').classList.add('active-link');
+			});
+		});
+	</script>
 </body>
 
 </html>

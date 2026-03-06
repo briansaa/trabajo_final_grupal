@@ -1,144 +1,589 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Institucion</title>
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/style.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
-	<script src="js/modernizr.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
-	<link rel="stylesheet" href="css/formulario.css">
-	<link rel="stylesheet" href="js/foe.js">
-	<link rel="stylesheet" href="css/style.css">
+	<title>Institución Educativa Alfred Nobel | Contáctenos</title>
+	<!-- Modern Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<style>
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1e40af;
+			--secondary: #10b981;
+			--dark: #0f172a;
+			--light: #f8fafc;
+			--text-main: #334155;
+			--text-muted: #64748b;
+			--glass-bg: rgba(255, 255, 255, 0.85);
+			--glass-border: rgba(255, 255, 255, 0.3);
+			--glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--text-main);
+			overflow-x: hidden;
+			background-image:
+				radial-gradient(circle at 85% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 40%),
+				radial-gradient(circle at 10% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+		}
+
+		/* --- Navbar (Glassmorphism) --- */
+		.navbar {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 1000;
+			background: var(--glass-bg);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-bottom: 1px solid var(--glass-border);
+			box-shadow: var(--glass-shadow);
+			padding: 15px 5%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			transition: all 0.3s ease;
+		}
+
+		.navbar-brand {
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: var(--primary-dark);
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.navbar-brand i {
+			color: var(--secondary);
+		}
+
+		.nav-links {
+			display: flex;
+			gap: 30px;
+			list-style: none;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: var(--text-main);
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: color 0.3s ease;
+			position: relative;
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 2px;
+			bottom: -4px;
+			left: 0;
+			background-color: var(--primary);
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover,
+		.nav-links a.active {
+			color: var(--primary);
+		}
+
+		.nav-links a:hover::after,
+		.nav-links a.active::after {
+			width: 100%;
+		}
+
+		.menu-toggle {
+			display: none;
+			cursor: pointer;
+			font-size: 1.5rem;
+			color: var(--dark);
+		}
+
+		/* --- Page Header --- */
+		.page-header {
+			margin-top: 70px;
+			/* Offset navbar */
+			background: linear-gradient(135deg, var(--dark), var(--primary-dark));
+			padding: 60px 5%;
+			text-align: center;
+			color: white;
+			position: relative;
+			z-index: 1;
+		}
+
+		.page-header h1 {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 15px;
+		}
+
+		.page-header p {
+			font-size: 1.1rem;
+			color: rgba(255, 255, 255, 0.8);
+			max-width: 700px;
+			margin: 0 auto;
+		}
+
+		/* --- Contact Layout --- */
+		.contact-workspace {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 50px;
+			padding: 60px 5%;
+			max-width: 1200px;
+			margin: -40px auto 0;
+			position: relative;
+			z-index: 10;
+		}
+
+		/* --- Contact Cards (Info) --- */
+		.contact-info {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		.info-card {
+			background: white;
+			padding: 30px;
+			border-radius: 20px;
+			box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+			display: flex;
+			align-items: center;
+			gap: 25px;
+			transition: all 0.3s ease;
+		}
+
+		.info-card:hover {
+			transform: translateX(10px);
+			box-shadow: 0 20px 40px rgba(37, 99, 235, 0.08);
+		}
+
+		.info-icon {
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
+			background: rgba(37, 99, 235, 0.1);
+			color: var(--primary);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.8rem;
+			flex-shrink: 0;
+		}
+
+		.info-details h3 {
+			font-size: 1.2rem;
+			color: var(--dark);
+			margin-bottom: 5px;
+		}
+
+		.info-details p {
+			color: var(--text-muted);
+			line-height: 1.6;
+		}
+
+		/* --- Premium Glassmorphism Form --- */
+		.form-container {
+			background: rgba(255, 255, 255, 0.85);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border: 1px solid rgba(255, 255, 255, 0.8);
+			border-radius: 25px;
+			padding: 40px;
+			box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.form-container::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 100px;
+			height: 100px;
+			background: var(--primary);
+			filter: blur(60px);
+			opacity: 0.5;
+			border-radius: 50%;
+		}
+
+		.form-container h2 {
+			font-size: 1.8rem;
+			color: var(--dark);
+			margin-bottom: 25px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.input-group {
+			margin-bottom: 20px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.input-group label {
+			display: block;
+			font-size: 0.9rem;
+			font-weight: 500;
+			color: var(--text-main);
+			margin-bottom: 8px;
+		}
+
+		.input-control {
+			width: 100%;
+			padding: 15px 20px;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.5);
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			font-size: 1rem;
+			color: var(--dark);
+			transition: all 0.3s ease;
+			outline: none;
+		}
+
+		.input-control:focus {
+			background: white;
+			border-color: var(--primary);
+			box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+		}
+
+		textarea.input-control {
+			min-height: 140px;
+			resize: vertical;
+		}
+
+		.btn-submit {
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			color: white;
+			border: none;
+			border-radius: 12px;
+			padding: 16px 30px;
+			font-size: 1.1rem;
+			font-weight: 600;
+			width: 100%;
+			cursor: pointer;
+			transition: all 0.4s ease;
+			box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+			position: relative;
+			overflow: hidden;
+			z-index: 1;
+		}
+
+		.btn-submit::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+			transition: left 0.5s ease;
+			z-index: -1;
+		}
+
+		.btn-submit:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3);
+		}
+
+		.btn-submit:hover::before {
+			left: 100%;
+		}
+
+		/* --- Footer --- */
+		.modern-footer {
+			background-color: var(--dark);
+			color: white;
+			padding: 60px 5% 30px;
+			margin-top: 50px;
+		}
+
+		.footer-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 40px;
+			margin-bottom: 40px;
+		}
+
+		.footer-col h4 {
+			font-size: 1.2rem;
+			margin-bottom: 20px;
+			color: var(--light);
+			position: relative;
+			display: inline-block;
+		}
+
+		.footer-col h4::after {
+			content: '';
+			position: absolute;
+			width: 30px;
+			height: 2px;
+			background: var(--secondary);
+			bottom: -8px;
+			left: 0;
+		}
+
+		.footer-col p,
+		.footer-col li {
+			color: rgba(255, 255, 255, 0.7);
+			line-height: 1.8;
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			text-decoration: none;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.social-links a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.social-links a:hover {
+			background: var(--primary);
+			transform: translateY(-3px);
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 30px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 0.5);
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 900px) {
+			.contact-workspace {
+				grid-template-columns: 1fr;
+				margin-top: 0;
+				padding-top: 40px;
+			}
+
+			.info-card {
+				padding: 20px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.menu-toggle {
+				display: block;
+			}
+
+			.nav-links {
+				position: absolute;
+				top: 100%;
+				left: -100%;
+				width: 100%;
+				background: var(--glass-bg);
+				backdrop-filter: blur(15px);
+				flex-direction: column;
+				align-items: center;
+				padding: 30px 0;
+				box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+				transition: left 0.3s ease;
+			}
+
+			.nav-links.active {
+				left: 0;
+			}
+		}
+	</style>
 </head>
 
 <body>
-	<!--======================================== Boton ir arriba ========================================-->
-	<i class="btn-up fa fa-arrow-circle-o-up hidden-xs"></i>
-	<!--======================================== Navegación ========================================-->
-	<header class="full-reset header">
-		<!--======================================== Logo(Nombre INS) ========================================-->
-		<div class="full-reset ">
-			
-			<span class="hidden-xs hidden-sm">alfred nobel</span>
+
+	<!-- Navbar -->
+	<nav class="navbar">
+		<a href="index.html" class="navbar-brand">
+			<i class="fa-solid fa-graduation-cap"></i>
+			Alfred Nobel
+		</a>
+		<div class="menu-toggle" id="mobile-menu">
+			<i class="fa-solid fa-bars"></i>
 		</div>
-		<!--======================================== Links de navegación ========================================-->
-		<nav class="full-reset navigation">
-			<ul class="full-reset list-unstyled">
-				<li><a href="index.html">Inicio</a></li>
-				<li><a href="institucion.html">Institución</a></li>
-				<li><a href="registro de notas2.html">registro de notas</a></li>
-				<li><a href="contactenos.html">Contactenos</a></li>
-				<li><a href="galeria.html">Galería</a></li>
-			</ul>
-		</nav>
-		<!--======================================== Mega menu ========================================-->
-		
-		<!--======================================== Boton menu mobil ========================================-->
-		<a href="#" class=" hidden-sm hidden-md hidden-lg pull-right button-menu-mobile show-close-menu-m"><i class="fa fa-ellipsis-v"></i></a>
+		<ul class="nav-links" id="nav-links">
+			<li><a href="index.html">Inicio</a></li>
+			<li><a href="institucion.html">Institución</a></li>
+			<li><a href="registro de notas2.html">Secretaría</a></li>
+			<li><a href="contactenos.html" class="active">Contáctenos</a></li>
+			<li><a href="galeria.html">Galería</a></li>
+		</ul>
+	</nav>
+
+	<!-- Page Header -->
+	<header class="page-header">
+		<h1>Centro de Contacto</h1>
+		<p>Estamos aquí para escucharte. Su opinión nos importa y es vital para seguir mejorando.</p>
 	</header>
-	<!--======================================== contenido de la pagina ========================================-->
-	
-	<!doctype html>
-<!--[if lte IE 9]>
-<html lang="en" class="oldie">
-<![endif]-->
-<!--[if gt IE 9]><!-->
-<html lang="en">
-<!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact Us Form</title>
-  <link rel="stylesheet" href="C:\Users\brian\OneDrive\primer sitio web\INS-master\css\formulario.css"> 
-</head>
-<body>
-	
-  
-	<form action="">
-		<div class="img" >
-		
-		<h1>Contactenos</h1>
-	</div>
-	<div class="row   ">
-			<h4 style="text-align:center ">Su opinion nos inporta</h4>
-	</div>
-	<div class="row input-container  bg-black">
-			<div class="col-xs-12">
-				<div class="styled-input wide ">
-					<input type="text" required  id="nombre"  placeholder="nombre"/>
-					
+
+	<!-- Contact Workspace -->
+	<div class="contact-workspace">
+
+		<!-- Contact Information Cards -->
+		<div class="contact-info">
+			<div class="info-card">
+				<div class="info-icon"><i class="fa-solid fa-phone-volume"></i></div>
+				<div class="info-details">
+					<h3>Llámanos</h3>
+					<p>Central Telefónica: +(51) 351-6196</p>
+					<p>Atención: Lun-Vie (8am - 4pm)</p>
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-12">
-				<div class="styled-input">
-					<input type="text" required id="correo"  placeholder="correo"/>
-				
+
+			<div class="info-card">
+				<div class="info-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--secondary);"><i
+						class="fa-solid fa-envelope-open-text"></i></div>
+				<div class="info-details">
+					<h3>Escríbenos</h3>
+					<p>AlfredNoble@gmail.com</p>
+					<p>Responderemos en menos de 24 hrs.</p>
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-12">
-				<div class="styled-input "  >
-					<input type="text " required  id="numero" placeholder="numero" />
-				
-				</div>
-			</div>
-			<div class="col-xs-12">
-				<div class="styled-input  wide">
-					<textarea required id="mensaje"   cols="30" rows="10" placeholder="mensaje"></textarea>
-				</div>
-			</div>
-			<div class="col-xs-12">
-				<html>
-					<body>
-						<form><input   class="col-md-6 col-sm-12 " type="button" onclick="ConfirmDemo()" value="enviar mensaje" />
-						</form>
-					</body>
-					</html>
-					
+
+			<div class="info-card">
+				<div class="info-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);"><i
+						class="fa-solid fa-map-location-dot"></i></div>
+				<div class="info-details">
+					<h3>Visítanos</h3>
+					<p>Av. Marco Puente Llanos Mz. G lote 2A</p>
+					<p>Ate Vitarte, Lima Continental</p>
 				</div>
 			</div>
 		</div>
-</body>
 
-		<!--======================================== Pie de pagina ========================================-->
-		<footer class="full-reset footer">
-			<div class="full-reset" style="padding: 15px 0; background-color: rgb(2, 88, 21);" >
-				<div class="container">
-					<div class="row-success" >
-						<div class="col-xs-12 col-sm-4">
-							<h4 class="titles text-center">Visitenos en</h4>
-							<p class="text-center">nuestro colegio o llamenos.</p>
-						</div>
-						<div class="col-xs-12 col-sm-4">
-							<h4 class="titles text-center">Contactenos</h4>
-							<p class="text-center">Telefono: +(51)123456789<br>Correo Electrónico:alfred_nobel@hotmail.com</p>
-						</div>
-						<div class="col-xs-12 col-sm-4">
-							<h4 class="titles subtitles-footer">redes</h4>
-							<ul class="list-unstyled links-footer">
-								<li><a href="#!" class="open-link-newTab"><i class="fa fa-facebook"></i> &nbsp; Facebook</a></li>
-								<li><a href="#!" class="open-link-newTab"><i class="fa fa-twitter"></i> &nbsp; Twitter</a></li>
-								<li><a href="#!" class="open-link-newTab"><i class="fa fa-google-plus"></i> &nbsp; Google+</a></li>
-							</ul>
-						</div>
-						<div class="col-xs-12">
-							<div class="full-reset footer-copyright"><i class="fa fa-copyright"></i>alfred nobel</div>
-						</div>
+		<!-- Contact Form -->
+		<div class="form-container">
+			<h2>Envíanos un Mensaje</h2>
+			<form action="#" method="POST" id="contactForm" onsubmit="event.preventDefault(); submitForm();">
+				<div class="input-group">
+					<label for="nombre">Nombre Completo *</label>
+					<input type="text" id="nombre" class="input-control" placeholder="Ej. Ana García" required>
+				</div>
+
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+					<div class="input-group">
+						<label for="correo">Correo Electrónico *</label>
+						<input type="email" id="correo" class="input-control" placeholder="tucorreo@ejemplo.com"
+							required>
+					</div>
+					<div class="input-group">
+						<label for="numero">Teléfono</label>
+						<input type="tel" id="numero" class="input-control" placeholder="+51 987 654 321" required>
 					</div>
 				</div>
+
+				<div class="input-group">
+					<label for="mensaje">¿En qué podemos ayudarte? *</label>
+					<textarea id="mensaje" class="input-control" placeholder="Escribe tu mensaje aquí..."
+						required></textarea>
+				</div>
+
+				<button type="submit" class="btn-submit">
+					<i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Enviar Mensaje
+				</button>
+			</form>
+		</div>
+
+	</div>
+
+	<!-- Footer -->
+	<footer class="modern-footer">
+		<div class="footer-grid" style="max-width: 1200px; margin: 0 auto;">
+			<div class="footer-col">
+				<h4>Alfred Nobel</h4>
+				<p>Una institución comprometida con el desarrollo integral y la excelencia educativa de nuestros
+					estudiantes.</p>
+				<div class="social-links">
+					<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+					<a href="#"><i class="fa-brands fa-twitter"></i></a>
+					<a href="#"><i class="fa-brands fa-instagram"></i></a>
+				</div>
 			</div>
-		</footer>
-	<!--======================================== API de GOOGLE Maps  ?========================================-->
-	
-</footer>
+			<div class="footer-col">
+				<h4>Contacto</h4>
+				<p><i class="fa-solid fa-location-dot"></i> Av. Marco Puente Llanos Mz. G lote 2A</p>
+				<p><i class="fa-solid fa-phone"></i> 351-6196</p>
+				<p><i class="fa-solid fa-envelope"></i> AlfredNoble@gmail.com</p>
+			</div>
+			<div class="footer-col">
+				<h4>Enlaces Rápidos</h4>
+				<ul style="list-style: none;">
+					<li><a href="index.html" style="color: inherit; text-decoration: none;">Inicio</a></li>
+					<li><a href="institucion.html" style="color: inherit; text-decoration: none;">Sobre Nosotros</a>
+					</li>
+					<li><a href="registro de notas2.html" style="color: inherit; text-decoration: none;">Secretaría
+							(Notas)</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2026 Alfred Nobel. Todos los derechos reservados.</p>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+		// Mobile menu toggle
+		const mobileMenu = document.getElementById('mobile-menu');
+		const navLinks = document.getElementById('nav-links');
+
+		mobileMenu.addEventListener('click', () => {
+			navLinks.classList.toggle('active');
+		});
+
+		// Navbar blur effect on scroll
+		window.addEventListener('scroll', () => {
+			const nav = document.querySelector('.navbar');
+			if (window.scrollY > 50) {
+				nav.style.background = 'rgba(255, 255, 255, 0.95)';
+				nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+			} else {
+				nav.style.background = 'rgba(255, 255, 255, 0.85)';
+				nav.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.07)';
+			}
+		});
+
+		// Form Submit Demo
+		function submitForm() {
+			swal("¡Mensaje Enviado!", "Gracias por contactarnos. Responderemos a la brevedad posible.", "success")
+				.then(() => {
+					document.getElementById('contactForm').reset();
+				});
+		}
+	</script>
 </body>
-<script src="C:\Users\brian\OneDrive\primer sitio web\INS-master\js\foe.js"></script>
+
 </html>

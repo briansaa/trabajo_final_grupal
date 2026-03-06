@@ -1,213 +1,560 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Institucion</title>
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/style.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
-	<script src="js/modernizr.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
+	<title>Institución Educativa Alfred Nobel | Inicio</title>
+	<!-- Modern Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<style>
+		:root {
+			--primary: #2563eb;
+			--primary-dark: #1e40af;
+			--secondary: #10b981;
+			--dark: #0f172a;
+			--light: #f8fafc;
+			--text-main: #334155;
+			--text-muted: #64748b;
+			--glass-bg: rgba(255, 255, 255, 0.85);
+			--glass-border: rgba(255, 255, 255, 0.3);
+			--glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		body {
+			background-color: var(--light);
+			color: var(--text-main);
+			overflow-x: hidden;
+		}
+
+		/* --- Navbar (Glassmorphism) --- */
+		.navbar {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 1000;
+			background: var(--glass-bg);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-bottom: 1px solid var(--glass-border);
+			box-shadow: var(--glass-shadow);
+			padding: 15px 5%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			transition: all 0.3s ease;
+		}
+
+		.navbar-brand {
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: var(--primary-dark);
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.navbar-brand i {
+			color: var(--secondary);
+		}
+
+		.nav-links {
+			display: flex;
+			gap: 30px;
+			list-style: none;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: var(--text-main);
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: color 0.3s ease;
+			position: relative;
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 2px;
+			bottom: -4px;
+			left: 0;
+			background-color: var(--primary);
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover {
+			color: var(--primary);
+		}
+
+		.nav-links a:hover::after {
+			width: 100%;
+		}
+
+		/* Mobile Menu */
+		.menu-toggle {
+			display: none;
+			cursor: pointer;
+			font-size: 1.5rem;
+			color: var(--dark);
+		}
+
+		/* --- Hero Section --- */
+		.hero {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 100px 5% 50px;
+			position: relative;
+			background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.05), transparent 40%),
+				radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05), transparent 40%);
+		}
+
+		.hero-content {
+			text-align: center;
+			max-width: 800px;
+			z-index: 1;
+		}
+
+		.hero h1 {
+			font-size: clamp(2.5rem, 5vw, 4rem);
+			font-weight: 700;
+			color: var(--dark);
+			margin-bottom: 20px;
+			line-height: 1.2;
+		}
+
+		.hero h1 span {
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+		.hero p {
+			font-size: 1.1rem;
+			color: var(--text-muted);
+			margin-bottom: 40px;
+		}
+
+		.hero-img {
+			max-width: 300px;
+			border-radius: 20px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+			margin: 0 auto 30px;
+			border: 8px solid white;
+			transition: transform 0.5s ease;
+		}
+
+		.hero-img:hover {
+			transform: scale(1.05) rotate(-2deg);
+		}
+
+		/* --- Modern Gallery Grid (Replaces Carousel) --- */
+		.section-padding {
+			padding: 80px 5%;
+		}
+
+		.section-header {
+			text-align: center;
+			margin-bottom: 50px;
+		}
+
+		.section-header h2 {
+			font-size: 2.2rem;
+			color: var(--dark);
+			position: relative;
+			display: inline-block;
+		}
+
+		.section-header h2::after {
+			content: '';
+			position: absolute;
+			width: 50px;
+			height: 3px;
+			background: var(--primary);
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			border-radius: 2px;
+		}
+
+		.modern-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			border-radius: 20px;
+			overflow: hidden;
+		}
+
+		.gallery-item {
+			height: 300px;
+			border-radius: 15px;
+			overflow: hidden;
+			position: relative;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.6s ease;
+		}
+
+		.gallery-item:hover img {
+			transform: scale(1.1);
+		}
+
+		.gallery-overlay {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: 20px;
+			background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+			color: white;
+			transform: translateY(100%);
+			transition: transform 0.4s ease;
+		}
+
+		.gallery-item:hover .gallery-overlay {
+			transform: translateY(0);
+		}
+
+		/* --- Cards Section (Niveles) --- */
+		.niveles-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 30px;
+			margin-top: 40px;
+		}
+
+		.modern-card {
+			background: white;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+			transition: all 0.4s ease;
+			position: relative;
+			top: 0;
+		}
+
+		.modern-card:hover {
+			top: -10px;
+			box-shadow: 0 25px 45px rgba(37, 99, 235, 0.1);
+		}
+
+		.card-img {
+			height: 220px;
+			overflow: hidden;
+		}
+
+		.card-img img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.modern-card:hover .card-img img {
+			transform: scale(1.08);
+		}
+
+		.card-content {
+			padding: 30px;
+		}
+
+		.card-content h3 {
+			font-size: 1.5rem;
+			color: var(--dark);
+			margin-bottom: 15px;
+		}
+
+		.card-content p {
+			color: var(--text-muted);
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		/* --- Footer --- */
+		.modern-footer {
+			background-color: var(--dark);
+			color: white;
+			padding: 60px 5% 30px;
+			margin-top: 50px;
+		}
+
+		.footer-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 40px;
+			margin-bottom: 40px;
+		}
+
+		.footer-col h4 {
+			font-size: 1.2rem;
+			margin-bottom: 20px;
+			color: var(--light);
+			position: relative;
+			display: inline-block;
+		}
+
+		.footer-col h4::after {
+			content: '';
+			position: absolute;
+			width: 30px;
+			height: 2px;
+			background: var(--secondary);
+			bottom: -8px;
+			left: 0;
+		}
+
+		.footer-col p,
+		.footer-col li {
+			color: rgba(255, 255, 255, 0.7);
+			line-height: 1.8;
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.social-links a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.social-links a:hover {
+			background: var(--primary);
+			transform: translateY(-3px);
+		}
+
+		.footer-bottom {
+			text-align: center;
+			padding-top: 30px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 0.5);
+			font-size: 0.9rem;
+		}
+
+		/* Mobile Adjustments */
+		@media (max-width: 768px) {
+			.menu-toggle {
+				display: block;
+			}
+
+			.nav-links {
+				position: absolute;
+				top: 100%;
+				left: -100%;
+				width: 100%;
+				background: var(--glass-bg);
+				backdrop-filter: blur(15px);
+				flex-direction: column;
+				align-items: center;
+				padding: 30px 0;
+				box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+				transition: left 0.3s ease;
+			}
+
+			.nav-links.active {
+				left: 0;
+			}
+		}
+	</style>
 </head>
+
 <body>
-	<!--======================================== Boton ir arriba ========================================-->
-	<i class="btn-up fa fa-arrow-circle-o-up hidden-xs"></i>
-	<!--======================================== Navegación ========================================-->
-	<header class="full-reset header">
-		<!--======================================== Logo(Nombre INS) ========================================-->
-		<div class="full-reset logo">
-			<span class="hidden-lg hidden-md">Lorem</span>
-			<span class="hidden-xs hidden-sm">Alfred Nobel</span>
+
+	<!-- Navbar -->
+	<nav class="navbar">
+		<a href="index.html" class="navbar-brand">
+			<i class="fa-solid fa-graduation-cap"></i>
+			Alfred Nobel
+		</a>
+		<div class="menu-toggle" id="mobile-menu">
+			<i class="fa-solid fa-bars"></i>
 		</div>
-		<!--======================================== Links de navegación ========================================-->
-		<nav class="full-reset navigation">
-			<ul class="full-reset list-unstyled">
-				<li><a href="index.html">Inicio</a></li>
-				<li><a href="institucion.html">Institución</a></li>
-				<li><a href="registro de notas2.html">registro de notas</a></li>
-				<li><a href="bachilleratos.html">contactenos</a></li>
-				<li><a href="galeria.html">Galería</a></li>
-			</ul>
-		</nav>
-		<!--======================================== Mega menu ========================================-->
-		<div class="full-reset mega-menu">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4">
-						<span class="full-reset titles">Recursos educativos</span>
-						<ul class="list-unstyled full-reset">
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-search"></i>&nbsp; Buscar en GOOGLE</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-graduation-cap"></i>&nbsp; Plataforma (MOODLE)</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<span class="full-reset titles">Enlaces importantes</span>
-						<ul class="list-unstyled full-reset">
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-university"></i>&nbsp; MINED</a></li>
-							<li><a href="#!"><i class="fa fa-paw"></i>&nbsp; ARA-MACAO</a></li>
-							<li><a href="#!"><i class="fa fa-globe"></i>&nbsp; JOVENES A.T.T</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-flask"></i>&nbsp; UNIVERSIDADES</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-gavel"></i>&nbsp; GOBIERNO</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<span class="full-reset titles">Archivos</span>
-						<ul class="list-unstyled full-reset">
-							<li><a href="#!"><i class="fa fa-star-o"></i>&nbsp; Promociones INS</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-file-text-o"></i>&nbsp; Const. de conducta</a></li>
-							<li><a href="#!"><i class="fa fa-download"></i>&nbsp; Descargas</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<i class="fa fa-times-circle btm-mega-menu close-mega-menu fa-2x"></i>
-		</div>
-		<!--======================================== Boton menu mobil ========================================-->
-		<a href="#" class=" hidden-sm hidden-md hidden-lg pull-right button-menu-mobile show-close-menu-m"><i class="fa fa-ellipsis-v"></i></a>
-	</header>		
-	<!--======================================== Logo & Lema ========================================-->
-	<section class="full-reset font-cover" style="background-image: url(assets/img/font-index.jpg);">
-		<div class="full-reset" style="height: 100%; background-color: rgba(255,255,255,.6); padding: 60px 0;">
-			<h1 class="text-center titles">Institucion</h1>
-			<figure class="Logo-Ins-Index">
-				<img src="assets/img/calegioindex.jpg" alt="Logo" class="img-responsive">
-			</figure>
+		<ul class="nav-links" id="nav-links">
+			<li><a href="index.html" style="color: var(--primary); font-weight: 600;">Inicio</a></li>
+			<li><a href="institucion.html">Institución</a></li>
+			<li><a href="registro de notas2.html">Secretaría</a></li>
+			<li><a href="contactenos.html">Contáctenos</a></li>
+			<li><a href="galeria.html">Galería</a></li>
+		</ul>
+	</nav>
+
+	<!-- Hero Section -->
+	<section class="hero">
+		<div class="hero-content">
+			<img src="assets/img/calegioindex.jpg" alt="Colegio Alfred Nobel" class="hero-img"
+				onerror="this.src='https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=400';">
+			<h1>Bienvenido a <span>Alfred Nobel</span></h1>
+			<p>Formando líderes del mañana con educación de calidad, valores humanos y excelencia académica en un
+				entorno innovador.</p>
 		</div>
 	</section>
-	<div class="divider-general"></div>
-	<!--======================================== Video corto & carrusel========================================-->
-	<section class="full-reset" style="background-color: rgb(242, 242, 242); padding: 40px 0;">
-		<div class="container">
-			<h2 class="text-center titles">Instalaciones de la institución</h2>
-			<br><br>
-			<!--======================================== Carrusel ========================================-->
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-sm-push-6">
-					<h3 class="text-center titles">Fotos Instalaciones</h3>
-					<p class="lead">Fotos donde podremos ver como es el colegio
-					</p>
-					<i class="fa fa-picture-o icon-index hidden-xs hidden-sm"></i>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-sm-pull-6">
-					<div id="slider-ins" class="carousel slide" data-ride="carousel">
-					  <!-- Indicadores -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#slider-ins" data-slide-to="0" class="active"></li>
-					    <li data-target="#slider-ins" data-slide-to="1"></li>
-					    <li data-target="#slider-ins" data-slide-to="2"></li>
-					  </ol>
 
-					  <!-- Imagenes -->
-					  <div class="carousel-inner" role="listbox">
-						
-						<!-- Primera imagen -->
-					    <div class="item active">
-					      <img src="assets/img/ruleta1.jpg" alt="Default">
-					      <div class="carousel-caption">
-					        
-					      </div>
-					    </div>
-						
-						<!-- Segunda imagen -->
-					    <div class="item">
-					      <img src="assets/img/ruleta2.jpg" alt="Default">
-					      <div class="carousel-caption">
-					        
-					      </div>
-					    </div>
-						
-					    
-					  </div>
-
-					  <!-- Controles -->
-					  <a class="left carousel-control" href="#slider-ins" role="button" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#slider-ins" role="button" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-					</div>
+	<!-- Gallery Preview -->
+	<section class="section-padding bg-light">
+		<div class="section-header">
+			<h2>Nuestras Instalaciones</h2>
+		</div>
+		<div class="modern-gallery" style="max-width: 1200px; margin: 0 auto;">
+			<div class="gallery-item">
+				<img src="assets/img/ruleta1.jpg" alt="Instalaciones 1"
+					onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800';">
+				<div class="gallery-overlay">
+					<h4>Espacios Modernos</h4>
 				</div>
 			</div>
-			<br>
-			<div class="divider-general"></div>
-			<br>
-	<!--======================================== Acontecer institucional ========================================-->
-	<section class="events-ins">
-		<div class="container-fluid">
-			<h2 class="text-center titles">Inscripción </h2>
-			<br><br>
-			<div class="row">
-				<!--======================================== Articulo 1 ========================================-->
-				<article class="col-xs-12 col-sm-6 col-md-4">
-					<div class="thumbnail">
-				      <img src="assets/img/INICIAL.jpg" alt="IMG" class="img-responsive img-rounded">
-				      <div class="caption">
-				        <h3 class="text-center">Inicial</h3>
-				        <p class="text-justify">En el nivel Inicial se contribuye al desarrollo integral de los niños, teniendo en cuenta su crecimiento físico, afectivo y cognitivo para que crezcan independientes y puedan desarrollar plenamente sus habilidades. Contamos con personal calificado, aulas con equipos multimedia y ambientes idóneos para llevar a cabo las diferentes actividades (patio independiente, sala de psicomotricidad, laboratorio de cómputo, cancha deportiva), en un clima adecuado inculcándoles valores a fin de favorecer su desarrollo personal. Estas técnicas favorecen al desarrollo armónico del niño y potencian su capacidad intelectual, emocional y espiritual.</p>
-				      </div>
-				    </div>
-				</article>
-				<!--======================================== Articulo 2 ========================================-->
-				<article class="col-xs-12 col-sm-6 col-md-4">
-					<div class="thumbnail">
-				      <img src="assets/img/primaria.png" alt="IMG" class="img-responsive img-rounded">
-				      <div class="caption">
-				        <h3 class="text-center">Primaria</h3>
-				        <p class="text-justify">Comprende a los alumnos de Primero a Quinto grado. En esta etapa, promovemos el desarrollo de habilidades y actitudes que fortalezcan la formación integral del estudiante a fin de conseguir un avance sólido y secuenciado de los objetivos que lo llevarán a alcanzar la excelencia académica. Desarrollamos proyectos interdisciplinarios institucionales, promoviendo la investigación, creatividad, autonomía y la autogestión de nuestros estudiantes.</p>
-				      </div>
-				    </div>
-				</article>
-				<!--======================================== Articulo 3 ========================================-->
-				<article class="col-xs-12 col-sm-6 col-md-4">
-					<div class="thumbnail">
-				      <img src="assets/img/secundaria.png" alt="IMG" class="img-responsive img-rounded">
-				      <div class="caption">
-				        <h3 class="text-center">Secundaria</h3>
-				        <p class="text-justify">Damos énfasis a un aprendizaje autónomo y responsable a través de contenidos y habilidades de pensamiento más elaborados, abstractos y profundos, de alta demanda académica. Nuestro objetivo primordial es desarrollar las capacidades de pensamiento crítico y creativo, toma de decisiones y la resolución de problemas. Desarrollamos con mayor profundidad la dimensión académica-investigativa, emocional, valorativa y vocacional; de esta manera orientamos el proyecto de vida de nuestros estudiantes.</p>
-				      </div>
-				    </div>
-				</article>
+			<div class="gallery-item">
+				<img src="assets/img/ruleta2.jpg" alt="Instalaciones 2"
+					onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800';">
+				<div class="gallery-overlay">
+					<h4>Áreas Recreativas</h4>
+				</div>
+			</div>
+			<div class="gallery-item">
+				<img src="assets/img/font-index.jpg" alt="Exterior"
+					onerror="this.src='https://images.unsplash.com/photo-1571260899304-42507611e139?auto=format&fit=crop&q=80&w=800';">
+				<div class="gallery-overlay">
+					<h4>Fachada Principal</h4>
+				</div>
 			</div>
 		</div>
 	</section>
-	<div class="divider-general"></div>
-	<!--======================================== Pie de pagina ========================================-->
-	<footer class="full-reset footer">
-		<div class="full-reset" style="padding: 15px 0;">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4">
-						<h4 class="titles text-center">Dirección</h4>
-						<p class="text-center">Av. Marco Puente Llanos Mz. G lote 2A</p>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<h4 class="titles text-center">Contactenos</h4>
-						<p class="text-center">Central Telefónica: 351-6196 <br>Correo Electrónico: AlfredNoble@gmail.com</p>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<h4 class="titles subtitles-footer">Siguenos en</h4>
-						<ul class="list-unstyled links-footer">
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-facebook"></i> &nbsp; Facebook</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-twitter"></i> &nbsp; Twitter</a></li>
-							<li><a href="#!" class="open-link-newTab"><i class="fa fa-google-plus"></i> &nbsp; Google+</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12">
-						<div class="full-reset footer-copyright"><i class="fa fa-copyright"></i> © 2021 Grupo D.D.S . Tecsup</div>
-					</div>
+
+	<!-- Educational Levels -->
+	<section class="section-padding" style="background-color: #f1f5f9;">
+		<div class="section-header">
+			<h2>Niveles Educativos</h2>
+		</div>
+		<div class="niveles-grid" style="max-width: 1200px; margin: 0 auto;">
+			<!-- Nivel Inicial -->
+			<div class="modern-card">
+				<div class="card-img">
+					<img src="assets/img/INICIAL.jpg" alt="Educación Inicial"
+						onerror="this.src='https://images.unsplash.com/photo-1587691592099-24045742c181?auto=format&fit=crop&q=80&w=600';">
+				</div>
+				<div class="card-content">
+					<h3>Inicial</h3>
+					<p>Contribuimos al desarrollo integral, afectivo y cognitivo de los niños para que crezcan
+						independientes. Contamos con personal calificado y ambientes idóneos.</p>
 				</div>
 			</div>
+
+			<!-- Nivel Primaria -->
+			<div class="modern-card">
+				<div class="card-img">
+					<img src="assets/img/primaria.png" alt="Educación Primaria"
+						onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=600';">
+				</div>
+				<div class="card-content">
+					<h3>Primaria</h3>
+					<p>Promovemos habilidades que fortalezcan la formación integral, logrando un avance sólido para
+						alcanzar la excelencia académica mediante proyectos de investigación.</p>
+				</div>
+			</div>
+
+			<!-- Nivel Secundaria -->
+			<div class="modern-card">
+				<div class="card-img">
+					<img src="assets/img/secundaria.png" alt="Educación Secundaria"
+						onerror="this.src='https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=600';">
+				</div>
+				<div class="card-content">
+					<h3>Secundaria</h3>
+					<p>Damos énfasis al aprendizaje autónomo a través de contenidos de alta demanda académica,
+						desarrollando pensamiento crítico, creatividad y toma de decisiones.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="modern-footer">
+		<div class="footer-grid" style="max-width: 1200px; margin: 0 auto;">
+			<div class="footer-col">
+				<h4>Alfred Nobel</h4>
+				<p>Una institución comprometida con el desarrollo integral y la excelencia educativa de nuestros
+					estudiantes.</p>
+				<div class="social-links">
+					<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+					<a href="#"><i class="fa-brands fa-twitter"></i></a>
+					<a href="#"><i class="fa-brands fa-instagram"></i></a>
+				</div>
+			</div>
+			<div class="footer-col">
+				<h4>Contacto</h4>
+				<p><i class="fa-solid fa-location-dot"></i> Av. Marco Puente Llanos Mz. G lote 2A</p>
+				<p><i class="fa-solid fa-phone"></i> 351-6196</p>
+				<p><i class="fa-solid fa-envelope"></i> AlfredNoble@gmail.com</p>
+			</div>
+			<div class="footer-col">
+				<h4>Enlaces Rápidos</h4>
+				<ul style="list-style: none;">
+					<li><a href="institucion.html" style="color: inherit; text-decoration: none;">Sobre Nosotros</a>
+					</li>
+					<li><a href="registro de notas2.html" style="color: inherit; text-decoration: none;">Secretaría
+							(Notas)</a></li>
+					<li><a href="contactenos.html" style="color: inherit; text-decoration: none;">Admisión</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2026 Alfred Nobel. Todos los derechos reservados. Diseño por Grupo D.D.S.</p>
 		</div>
 	</footer>
+
+	<script>
+		// Mobile menu toggle
+		const mobileMenu = document.getElementById('mobile-menu');
+		const navLinks = document.getElementById('nav-links');
+
+		mobileMenu.addEventListener('click', () => {
+			navLinks.classList.toggle('active');
+		});
+
+		// Navbar blur effect on scroll
+		window.addEventListener('scroll', () => {
+			const nav = document.querySelector('.navbar');
+			if (window.scrollY > 50) {
+				nav.style.background = 'rgba(255, 255, 255, 0.95)';
+				nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+			} else {
+				nav.style.background = 'rgba(255, 255, 255, 0.85)';
+				nav.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.07)';
+			}
+		});
+	</script>
 </body>
+
 </html>
